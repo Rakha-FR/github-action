@@ -27,3 +27,9 @@ jobs:
             echo "ENV_SERVER=production" >> $GITHUB_OUTPUT
             echo "APP_VERSION=$(date +&Y.%m.%d)-${ENV_SERVER}_${GITHUB_TAG}" >> $GITHUB_OUTPUT
           fi
+        
+      - name: Variable validation
+        id: validate_variables
+        run: |
+          echo "App Version: ${{ steps.set_environment.outputs.APP_VERSION }}"
+          echo "Environment Server: ${{ steps.set_environment.outputs.ENV_SERVER }}"
