@@ -1,0 +1,29 @@
+name: Prepare variable
+on:
+  push:
+    branches:
+      - development
+      - staging
+    tags:
+      - 'v*'
+
+jobs:
+  prepare-variable:
+    runs-on: ubuntu-latest    
+    outputs:
+      APP_VERSION: ${{ steps.set_version.outputs.APP_VERSION }}
+      ENV_SERVER: ${{ steps.set_env.outputs.ENV_SERVER }}
+    steps:
+      - name: Set version and environment
+        id: set_environment
+        run: |
+          if [ -n "${GITHUB_REF}" ] && [[ "${$GITHUB_REF}" == development* ]]; then
+            echo "ENV_SERVER=development" >> $GITHUB_OUTPUT
+            echo "APP_VERSION=$(date +%Y.%m.%d)-${ENV_SERVER}_${GITHUB_SHA}" >> $GITHUB_OUTPUT
+          elif [ -n "${GITHUB_REF}" ] && [[ "${GITHUB_REF}" == staging* ]]; then
+            echo "ENV_SERVER=staging" >> $GITHUB_OUTPUT
+            echo "APP_VERSION=$(date +%Y.%m.%d)-${ENV_SERVER}_${GITHUB_SHA}" >> $GITHUB_OUTPUT
+          elif [ -n "${GITHUB_REF}" ] && [[ "${GITHUB_REF}" ]]; then
+            echo "ENV_SERVER=production" >> $GITHUB_OUTPUT
+            echo "APP_VERSION=$(date +&Y.%m.%d)-${ENV_SERVER}_${GITHUB_TAG}" >> $GITHUB_OUTPUT
+          fi
