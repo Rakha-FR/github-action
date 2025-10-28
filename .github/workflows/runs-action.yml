@@ -1,0 +1,12 @@
+name: Run workflows
+
+on:
+  workflow_call:
+
+jobs:
+  prepare-version:
+    uses: ./.github/workflows/pre-build/prepare-version.yaml
+
+  build-maven:
+    uses: ./.github/workflows/build/mvn-build.yml
+    needs: prepare-version

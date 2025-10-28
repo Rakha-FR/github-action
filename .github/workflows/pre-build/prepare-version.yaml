@@ -1,12 +1,7 @@
 name: Prepare variable
 on:
-  push:
-    branches:
-      - development
-      - staging
-    tags:
-      - 'v*'
-
+  workflow_call:
+  
 jobs:
   prepare-variable:
     runs-on: ubuntu-latest    
