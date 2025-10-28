@@ -15,6 +15,7 @@ runs:
         cache: 'maven'
 
     - name: Build and Test
+      shell: bash
       run: mvn --batch-mode clean verify
 
     - name: Upload Build Artifacts

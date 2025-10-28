@@ -4,10 +4,10 @@ description: "Prepare application version and environment based on branch or tag
 outputs:
   APP_VERSION:
     description: "The application version"
-    value: ${{ steps.set_version.outputs.APP_VERSION }}
+    value: ${{ steps.set_environment.outputs.APP_VERSION }}
   ENV_SERVER: 
     description: "The deployment environment"
-    value: ${{ steps.set_env.outputs.ENV_SERVER }}
+    value: ${{ steps.set_environment.outputs.ENV_SERVER }}
 
 
 runs:
@@ -15,6 +15,7 @@ runs:
   steps:
     - name: Set version and environment
       id: set_environment
+      shell: bash
       run: |
         if [[ "${{ github.ref }}" == *"refs/heads/development"* ]]; then
           env_server="development"
@@ -32,6 +33,7 @@ runs:
       
     - name: Variable validation
       id: validate_variables
+      shell: bash
       run: |
         echo "App Version: ${{ steps.set_environment.outputs.APP_VERSION }}"
         echo "Environment Server: ${{ steps.set_environment.outputs.ENV_SERVER }}"
