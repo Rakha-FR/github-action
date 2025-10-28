@@ -11,11 +11,11 @@ jobs:
       ENV_SERVER: ${{ steps.pre.outputs.ENV_SERVER }}
     steps:
       - name: Prepare Version and Environment
-        uses: ./.github/actions/pre-build
+        uses: Rakha-FR/github-action/.github/actions/pre-build@development
 
   build-maven:
     runs-on: ubuntu-latest
     steps:
       - name: Build Maven Application
-        uses: ./.github/actions/mvn-build
+        uses: Rakha-FR/github-action/.github/actions/mvn-build@development
     needs: prepare-version
