@@ -19,15 +19,3 @@ jobs:
       - name: Build Maven Application
         uses: Rakha-FR/github-action/.github/actions/mvn-build@development
     needs: prepare-version
-
-  docker-build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Docker Image
-        uses: Rakha-FR/github-action/.github/actions/docker-build@development
-    needs:
-      - prepare-version
-      - build-maven
-    with:
-      APP_VERSION: ${{ needs.prepare-version.outputs.APP_VERSION }}
-      ENV_SERVER: ${{ needs.prepare-version.outputs.ENV_SERVER }}

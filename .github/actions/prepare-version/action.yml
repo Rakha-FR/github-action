@@ -9,7 +9,6 @@ outputs:
     description: "The deployment environment"
     value: ${{ steps.set_environment.outputs.ENV_SERVER }}
 
-
 runs:
   using: composite
   steps:
