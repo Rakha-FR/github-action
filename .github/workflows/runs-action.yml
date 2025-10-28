@@ -5,8 +5,17 @@ on:
 
 jobs:
   prepare-version:
-    uses: ./.github/workflows/pre-build/prepare-version.yaml
+    runs-on: ubuntu-latest
+    outputs:
+      APP_VERSION: ${{ steps.pre.outputs.APP_VERSION }}
+      ENV_SERVER: ${{ steps.pre.outputs.ENV_SERVER }}
+    steps:
+      - name: Prepare Version and Environment
+        uses: ./.github/actions/pre-build
 
   build-maven:
-    uses: ./.github/workflows/build/mvn-build.yml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Maven Application
+        uses: ./.github/actions/mvn-build
     needs: prepare-version
