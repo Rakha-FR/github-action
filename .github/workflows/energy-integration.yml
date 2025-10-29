@@ -11,7 +11,7 @@ jobs:
       ENV_SERVER: ${{ steps.pre.outputs.ENV_SERVER }}
     steps:
       - name: Prepare Version and Environment
-        uses: Rakha-FR/github-action/.github/actions/prepare-version@migrasi
+        uses: Rakha-FR/github-action/.github/actions/prepare-version@development
 
   build-maven:
     container:
@@ -20,6 +20,6 @@ jobs:
     needs: prepare-environment
     steps:
       - name: Build Maven Application
-        uses: Rakha-FR/github-action/.github/actions/mvn-build@migrasi
+        uses: Rakha-FR/github-action/.github/actions/mvn-build@development
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
